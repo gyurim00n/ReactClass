@@ -150,3 +150,271 @@ createRoot(document.getElementById('root')).render(
 	function App(){
 		return( <div> [.. jscript..] <div>)
 	}
+
+14.  최신 버젼 React 설치 (현재 19. 우리도 19.)
+npm i react@latest react-dom@latest
+
+15. ES16 문법: ECMAScript6 약어  = ECMAScript2015
+	1) class
+	class Car{	//클래스명은 대문자로 시작
+		constructor(name){	//생성자 함수는 객체 생성시 자동으로 호출된다.
+		this.brand= name;
+		}
+		//메서드 선언
+		present(){
+			return 'I have a' + this.brand;
+		}
+	}
+
+	const mycar = new Car("BMW");
+	mycar.present();
+
+	2) 상속 
+	class Model extends Car{
+		constructor(name, mod){
+			super(name);	//super 키워드
+			this.model=mod;
+		}
+
+		show(){
+			return this.present() + ' ' + this.model;
+		}
+	}
+	mycar2 = new Model('BMW', 'mustant');
+	mycar2.show();
+
+	3) 화살표 함수
+	hello  = function(){
+		return "hello world";
+	}
+
+	hello = () => {
+		return "hello world";
+	}
+
+	hello = () => "hello world";
+
+	//매개변수 있는 경우..
+	hello = (name) => "hello "+ name;
+
+	//매개변수 있는 경우에는 괄호() 생략 가능.
+	hello = name => "hello "+ name;
+
+	(주의)	this
+
+	4. 3가지 변수...
+		(1) var
+		(2) const
+		(3) let
+
+	5. js	배열.map()
+	(1)	배열의 각 요소에 대해서 처리하는 함수, 새로운 요소의 배열을 생성하는 메서드
+	const m = [1,2,3];
+	const n = m.map(x => x*2);	//[2,4,6]
+	(2) React의 map() 사용... App02
+	const nameArr = ['홍길동', '서영학', '정창기'];
+	function MyList(){	//앞글자가 대문자면 컴포넌트| 컴포넌트 =>js=> HTML 요소
+		return(
+		<ul>
+			{nameArr.map(name => <li key={name}>${name}</li>)}
+		</ul>
+		);
+	}
+	
+	-React에서 리스트항목을 생성할 떄는 각 항목의 고유한 key속성이 필요하다. 
+	
+6) 객체 배열을 사용하는  map()	///App03
+function App() {
+ 
+  const userArr = [
+    {id:1, name:'John',age:20}
+    ,{id:2, name:'Jane',age:25}
+    ,{id:3, name:'Bob',age:30}
+  ];
+
+  return (
+    <ul>
+    {userArr.map(user => <li key={user.id}>{user.name} / {user.age}</li>)}
+		</ul>
+
+  )
+}
+
+7) map( 1, 2, 3)	메서드의 매개변수의 의미... App04
+	(1)currentValue: 현재 처리중인 요소
+	(2)index: 현재 요소의 인덱스
+	(3)array: 배열 자체
+	const nameArr = ['홍길동', '서영학', '정창기'];
+  return (
+    <ul>
+			{nameArr.map((name, index, array) => 
+        <li key={index}>Name: {name} / Array: {array}</li>
+        )
+      }
+		</ul>
+  )
+
+8)구조 분해 할당: 객체, 배열에서 값을 추출하여 별도의 변수에 저장할 수 있게 하는 JS 기능
+	ㄴ리액트에서 속성(props), 훅(hooks), 상태관리와 함께 자주 사용된다.
+	ㄴ React 코드를 더 간결하게 처리할 수 있다.
+	(1)예
+	const nameArr = ['aaa','bbb','ccc'];
+	const name1 = nameArr[0];
+	const name2 = nameArr[1];
+	const name3 = nameArr[2];
+
+	(2) 예
+	const nameArr = ['aaa','bbb','ccc'];
+	const  [name1, name2, name3] = nameArr;	//구조분해할당할때 순서 중요...
+	
+	(3)예
+	const nameArr = ['aaa','bbb','ccc']; //bbb를 제외하고싶다면?
+	const name1 = nameArr[0];
+	const name3 = nameArr[2];
+
+	const  [name1, , name3] = nameArr;
+
+	(4)예
+	function getDate( d ){
+		const y = dat.getFullYear();
+		const m = dat.getMonth() + 1;
+		const d = dat.getDate();
+
+		return [y,m,d];
+	}
+
+	const [year, month, day] = getDate( new Date() );
+
+9) 구조 분해 할당: 객체
+
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50
+};
+const fname = person.firstName;
+:
+:
+
+let{ fname, lname, age} = person;
+let{ lname, age, fname} = person;	//순서 중요 x
+
+let {firstName} = person;
+//없는 항목도 추가 가능
+let {lastName, age=30, firstName, gender = true}  = person;
+
+10. 중첩된 객체의 구조분해 할당..
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  car: {
+    brand: 'Ford',
+    model: 'Mustang',
+  }
+};
+
+let{firstName, car: {brand, model}} = person; 
+
+11) React에서 구조 분해 할당... 
+	예)
+	import { useState } from 'react'
+import heroImg from './assets/hero.png'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import './App.css'
+
+//컴포넌트
+/*[1]
+function Greeting(){
+  return (
+    <h1>Hello World~</h1>
+  );
+}
+*/
+/*[2]
+function Greeting(props){
+  return (  
+    <h1>Hello World {props.name} / {props.age}~</h1>
+  );
+}
+  */
+
+function Greeting({name}){
+  return (  
+    <h1>Hello World {name} </h1>
+  );
+}
+
+//App 컴포넌트(작은 단위)
+function App() {
+  
+  return (
+    <Greeting name="hong" age={25} />
+  );
+}
+
+export default App
+
+
+12) useState 훅 구조 분해
+function Greeting({name}){
+  return (  
+    <h1>Hello World {name} </h1>
+  );
+}
+
+//App 컴포넌트(작은 단위)
+function App() {
+  
+  const [count, setCount] = useState(0);
+
+
+  return (
+    <button onClick={() => setCount(count+1)}>Count : {count}</button>
+  );
+}
+
+13) spread 연산자	***
+	ㄴ기존배열, 객체의 전체 또는 일부를 다른 배열, 객체로복사..
+	(1) const m = [1,2,3];
+		const n = [4,5,6];
+	const mn = {...m,,...n};
+	(2) const m = [1,2,3,4,5,6];
+		const {one, two, ...rest}= m;
+	(3) 객체에도 스프레드 연산자 사용
+const car = {
+  brand: 'Ford',
+  model: 'Mustang',
+  color: 'red'
+}
+
+const car_more = {
+  type: 'car',
+  year: 2021, 
+  color: 'yellow'
+}
+	const mycar = {...car, ...car_more};
+
+14)모듈
+	(1) js모듈을 사용하면 코드를 여러개 파일로 분리가능
+	(2)코드 베이스르를 유지관리하기쉬워진다
+	(3) ES 모듈은 import 및 export 문...
+		ㄱ.import
+			import {name, age} 어떤 파일
+		ㄴ.export
+			ㄴ어떤 파일에서든 함수 ,변수를 내보낼수있다
+			ㄴ명명된 export
+				예) export const name = "hong";
+					export const age= 30;
+
+			const name= "hong"
+			const age = 30;
+			export {name,age}
+			ㄴ기본 export
+				예) 
+				const hello () => {};
+				export default hello;
+(4) App04.jsx \
+	function Greeting(){} 		//JSX 컴포넌트 => Greeting.jsx 파일 export
+	function App(){}			import  사용
