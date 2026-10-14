@@ -1,0 +1,152 @@
+1.터미널 code . -> VSCode 실행
+2.터미널에 node -v, npm -v 검색.
+3. React 개요
+	1)사용자 인터페이스(UI)를 만들기 위한 JavaScript 라이브러리 
+	2) 주로 웹페이지의 화면을 개발할 때 사용
+	3)복잡한 버튼, 메뉴, 게시판, 로그인 화면 등 효율적으로 만들 수 있다.
+		즉, UI 구성 요소를 구축하기 위한 도구.
+	4)공식 사이트: https://ko.react.dev/
+	5)React는 화면을 컴포넌트 작은 단위로 개발.
+	6)페이스북 sw 엔지니어인 조던 워크가 개발..
+
+4. React의 주요 특징
+특징   				|			설명
+컴포넌트(Component)   	화면을 재사용 가능한 작은 단위로 분리
+JSX   					JavaScript 코드 안에서 HTML과 유사한 문법으로 화면 작성
+Props   				부모 컴포넌트에서 자식 컴포넌트로 데이터 전달
+State   				컴포넌트가 관리하는 데이터이며 변경 시 화면 업데이트
+선언형 UI   			화면이 어떤 상태에서 어떻게 보여야 하는지 표현
+Virtual DOM   			화면 변경 사항을 효율적으로 반영하는 데 활용되는 기술적 개념
+
+5.
+구분      		Spring Boot 개발      React 개발
+주요 언어      	Java         		JavaScript
+개발 도구      	STS / IntelliJ      	VS Code
+실행 환경 및 도구   JDK         	Node.js
+의존성 관리   	Maven / Gradle      npm
+개발 서버 실행   bootRun 등      	npm run dev
+
+6. https://nodejs.org/ko
+
+7. Vite (비트)
+	1) React 프로젝트를 빠르게 시작하고 개발 서버를 실행하며, 배포용 파일을 빌드할때 사용하는 도구
+	2)비트의 공식사이트 https://ko.vite.dev/guide/
+
+8. React의 동작 원리
+	1)React는 메모리에 가상 DOM 을 생성하여 화면을 효율적으로 관리
+	2)브라우저의 DOM을 직접 조작하는 대신 메모리의 가상 dom을 생성하여 필요한 모든 조직을 수행한 후 브라우저 DOM에 변경사항을 적용한다.
+
+	3)React는 어떤 변경 사항이 있는지 파악 후 필요한 부분만 변경한다.
+
+
+9. React 시작
+	1)Node.js 와 npm 설치확인
+	node -v   |      npm -v
+	2) node-24msi 실행
+	3)설치확인
+		PS C:\Users\user> node -v
+		v24.21.0
+		PS C:\Users\user> where.exe node
+		C:\Program Files\nodejs\node.exe
+	4)빌드 도구 (Vite) 설치 
+	npm install -g create-vite
+
+10. React  어플리케이션 상생
+	1) 		npm create vite@latest basic -- --template react
+	npm create vite@latest my-react-app -- --template react
+
+
+PS C:\Class\ReactClass> npm create vite@latest basic -- --template react
+
+> npx
+> create-vite basic --template react
+
+│
+◇  Which linter to use?
+│  Oxlint
+│
+◇  Install with npm and start now?
+│  Yes
+│
+◇  Scaffolding project in C:\Class\ReactClass\basic...
+│
+◇  Installing dependencies with npm...
+
+added 24 packages, and audited 25 packages in 4s
+
+9 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+│
+◇  Starting dev server...
+
+> basic@0.0.0 dev
+> vite
+
+
+  VITE v8.3.4  ready in 405 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+h
+
+  Shortcuts
+  press r + enter to restart the server
+  press u + enter to show server url
+  press o + enter to open in browser
+  press c + enter to clear console
+  press q + enter to quit
+q
+PS C:\Class\ReactClass> cd basic
+PS C:\Class\ReactClass\basic> npm run dev
+
+> basic@0.0.0 dev
+> vite
+
+
+  VITE v8.3.4  ready in 141 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+
+
+11. Hello World 문자열 출력
+1)
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div className='App'>
+
+    <h1>Hello World!</h1>
+
+    </div>
+  )
+}
+2)새로고침x
+3)index.html 
+<body>
+	컨테이너 요소
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+
+4)main.jsx
+createRoot(document.getElementById('root')).render(
+  <StrictMode>	//개발자모드
+    <App />	//jsx 컴포넌트
+  </StrictMode>,
+)
+	(1) createRoot()	//root 컨테이너 안에 생성해서 
+		ㄴ루트 노드를 생성하는 내장 함수
+	(2) render()		//html로 렌더링하라.
+		ㄴ html 컴포넌트 앞에 뭘 렌더링할지 정의한다.
+		ㄴdiv id="root">요소에 표시...
+	(3)  <App/ >
+	function App(){
+		return( <div> [.. jscript..] <div>)
+	}
